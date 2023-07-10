@@ -1,5 +1,5 @@
 #修改TNAME: K2P 中的K2P为你需要编译的型号，注意名称要与configs/templates/目录下的名字相同
-name: CYG-K2P
+name: CYG-K2P-4.4
 
 on: 
   workflow_dispatch:
@@ -25,7 +25,7 @@ jobs:
       env:
         KERNEL: 4.4
       run: |
-        git clone --depth=1 https://github.com/chenbaker/Padavan-KVR.git /opt/rt-n56u
+        git clone --depth=1 https://github.com/MeIsReallyBa/padavan-4.4.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
@@ -44,17 +44,23 @@ jobs:
         #因不同型号配置功能不一样，所以先把配置项删除，如果你自己要添加其他的，也要写上删除这一条，切记！！！
         ################################################################################################
         
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_ZEROTIER/d' .config #删除配置项zerotier
+        #sed -i '/CONFIG_FIRMWARE_INCLUDE_ZEROTIER/d' .config #删除配置项zerotier
         #sed -i '/CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS/d' .config #删除配置项SHADOWSOCKS
-
+        #sed -i '/CONFIG_FIRMWARE_INCLUDE_XRAY/d' .config
+        #sed -i '/CONFIG_FIRMWARE_INCLUDE_TROJAN/d' .config
+        #sed -i '/CONFIG_FIRMWARE_INCLUDE_SSOBFS/d' .config
+        
         ######################################################################
         #以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件
         ######################################################################
         
-        echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=y" >> .config #zerotier ~1.3M
-        #echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=y" >> .config #SHADOWSOCKS 
-
-        ###############################################################################
+        #echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=y" >> .config #zerotier ~1.3M
+        #echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=n" >> .config #SHADOWSOCKS 
+        #echo "CONFIG_FIRMWARE_INCLUDE_XRAY=n" >> .config
+        #echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=n" >> .config
+        #echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=n" >> .config
+        
+        #########################################################################################
         #自定义添加其它功能请参考源码configs/templates/目录下的config文件。按照上面的格式添加即可
         #格式如下：
         #sed -i '/自定义项/d' .config
