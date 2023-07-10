@@ -31,7 +31,7 @@ jobs:
         mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: K2-USB-CYG
+        TNAME: CYG-K2-USB
         KERNEL: 3.4
       run: |
         cd /opt/rt-n56u/trunk
@@ -57,10 +57,13 @@ jobs:
         
         echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=y" >> .config #zerotier ~1.3M
         echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=y" >> .config #SHADOWSOCK
-        #echo "CONFIG_FIRMWARE_INCLUDE_XRAY=y" >> .config #集成xray执行文件，可以代替v2ray，大小5M多，如果闪存太小不够还是建议使用v2ray
-        #echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=y" >> .config #集成trojan执行文件，如果不集成，会从网上下载下来执行，不影响正常使用
-        #echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=y" >> .config #simple-obfs混淆插件
-        #echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=y" >> .config #集成v2ray执行文件，如果不集成，会从网上下载下来执行，不影响正常使用
+        #echo "CONFIG_FIRMWARE_INCLUDE_XRAY=n" >> .config #集成xray执行文件，可以代替v2ray，大小5M多，如果闪存太小不够还是建议使用v2ray
+        #echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=n" >> .config #集成trojan执行文件，如果不集成，会从网上下载下来执行，不影响正常使用
+        #echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=n" >> .config #simple-obfs混淆插件
+        #echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=n" >> .config #集成v2ray执行文件，如果不集成，会从网上下载下来执行，不影响正常使用
+        echo "CONFIG_FIRMWARE_INCLUDE_ALIDDNS=y" >> .config #aliddns
+        echo "CONFIG_FIRMWARE_INCLUDE_DDNSTO=y" >> .config #ddnsto
+        echo "CONFIG_FIRMWARE_INCLUDE_NPC=y" >> .config #npc
         
         #########################################################################################
         #自定义添加其它功能请参考源码configs/templates/目录下的config文件。按照上面的格式添加即可
